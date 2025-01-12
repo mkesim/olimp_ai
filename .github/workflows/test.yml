@@ -77,7 +77,7 @@ jobs:
           context: .
           push: false
           load: true
-          tags: agent-service-toolkit.service:${{ github.sha }}
+          tags: olimp_ai.service:${{ github.sha }}
           file: docker/Dockerfile.service
 
       - name: Build app image
@@ -86,11 +86,11 @@ jobs:
           context: .
           push: false
           load: true
-          tags: agent-service-toolkit.app:${{ github.sha }}
+          tags: olimp_ai.app:${{ github.sha }}
           file: docker/Dockerfile.app
 
       - name: Start service container
-        run: docker run -d --name service-container --network host -e USE_FAKE_MODEL=true agent-service-toolkit.service:${{ github.sha }}
+        run: docker run -d --name service-container --network host -e USE_FAKE_MODEL=true olimp_ai.service:${{ github.sha }}
 
       - name: Confirm service starts correctly
         run: |
@@ -103,7 +103,7 @@ jobs:
           '
 
       - name: Run app container
-        run: docker run -d --name app-container --network host -e AGENT_URL=http://localhost agent-service-toolkit.app:${{ github.sha }}
+        run: docker run -d --name app-container --network host -e AGENT_URL=http://localhost olimp_ai.app:${{ github.sha }}
 
       - name: Confirm app starts correctly
         run: |
